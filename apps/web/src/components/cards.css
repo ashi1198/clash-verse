@@ -1,0 +1,64 @@
+.anime-card {
+  --card-main: #ef4e24;
+  --card-bright: #ffcf3e;
+  --card-deep: #7d2330;
+  --card-ink: #24252b;
+  --card-paper: #fff0cb;
+  position: relative;
+  width: 220px;
+  padding: 6px;
+  overflow: hidden;
+  color: var(--card-ink);
+  border: 2px solid #fff2a1;
+  border-radius: 13px;
+  background: linear-gradient(145deg, #fff4ae, var(--card-bright) 24%, var(--card-main) 58%, var(--card-deep));
+  box-shadow: 0 18px 36px #0009, inset 0 0 0 2px #ffffff55;
+  font-family: 'DM Sans', sans-serif;
+}
+.anime-card.accent-forest { --card-main:#22956b;--card-bright:#a9e55e;--card-deep:#174b4e }
+.anime-card.accent-ocean { --card-main:#298dce;--card-bright:#73e5f3;--card-deep:#263e83 }
+.anime-card.accent-shadow { --card-main:#7542a6;--card-bright:#d779e8;--card-deep:#39255f }
+.anime-card__foil { position:absolute;z-index:5;width:300px;height:34px;top:30%;left:-80%;transform:rotate(-35deg);background:#fff8c936;filter:blur(5px);pointer-events:none }
+.anime-card__header { position:relative;z-index:2;height:42px;display:flex;align-items:center;padding:0 7px;color:white;background:linear-gradient(100deg,var(--card-bright),var(--card-main));clip-path:polygon(0 0,100% 0,95% 100%,0 100%) }
+.anime-card__tier { font:italic 900 31px 'Barlow Condensed',sans-serif;text-shadow:0 2px 0 var(--card-deep);margin-right:7px }
+.anime-card__header>span:nth-child(2) { flex:1;min-width:0 }
+.anime-card__header small,.anime-card__header strong { display:block }
+.anime-card__header small { font-size:5px;letter-spacing:.16em;opacity:.8 }
+.anime-card__header strong { overflow:hidden;font:800 11px 'Barlow Condensed',sans-serif;text-overflow:ellipsis;white-space:nowrap;text-transform:uppercase }
+.anime-card__header>b { width:25px;height:25px;display:grid;place-items:center;border-radius:50%;background:white;color:var(--card-main);font:900 11px 'Barlow Condensed',sans-serif }
+.anime-card__art { height:210px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 37%,var(--card-bright),var(--card-main) 49%,var(--card-deep));border:2px solid #fff7c2 }
+.anime-card__burst { position:absolute;inset:-45%;background:repeating-conic-gradient(#ffffff30 0 8deg,transparent 8deg 19deg);animation:card-glow 28s linear infinite }
+.anime-card__character { position:absolute;width:82px;height:105px;left:50%;top:31px;transform:translateX(-50%);border-radius:47% 47% 34% 34%;background:#222931;box-shadow:-18px -15px 0 -10px #222931,18px -12px 0 -10px #222931 }
+.anime-card__character i { position:absolute;background:#20272e }
+.anime-card__character i:first-child { width:145px;height:125px;top:84px;left:-31px;border-radius:45% 45% 0 0 }
+.anime-card__character i:nth-child(2) { width:29px;height:110px;top:90px;left:-40px;transform:rotate(18deg) }
+.anime-card__character i:last-child { width:29px;height:110px;top:90px;right:-40px;transform:rotate(-18deg) }
+.anime-card__edition { position:absolute;right:5px;top:5px;color:#fff9cf;font-size:6px;font-weight:800 }
+.anime-card__class { position:absolute;left:0;right:0;bottom:10px;padding:5px;text-align:center;color:white;background:linear-gradient(90deg,var(--card-bright),var(--card-main));font:italic 900 16px 'Barlow Condensed',sans-serif;letter-spacing:.08em;text-shadow:0 2px var(--card-deep);clip-path:polygon(4% 0,100% 0,96% 100%,0 100%) }
+.anime-card__identity { padding:8px;text-align:center;background:var(--card-paper);border-bottom:2px solid var(--card-main) }
+.anime-card__identity small,.anime-card__identity strong { display:block }
+.anime-card__identity small { color:#8b633f;font-size:6px;letter-spacing:.16em;text-transform:uppercase }
+.anime-card__identity strong { font:italic 900 19px 'Barlow Condensed',sans-serif;text-transform:uppercase }
+.anime-card__power { min-height:67px;padding:8px;background:#fff9e8 }
+.anime-card__power small,.anime-card__power strong { display:block }
+.anime-card__power small { color:var(--card-main);font-size:6px;font-weight:800;letter-spacing:.13em }
+.anime-card__power strong { margin:2px 0;font:800 12px 'Barlow Condensed',sans-serif;text-transform:uppercase }
+.anime-card__power p { margin:0;color:#706653;font-size:6px;line-height:1.4 }
+.anime-card__stats { display:flex;justify-content:space-between;padding:5px 9px;background:#efd38b;font-size:7px }
+.anime-card__stats b { color:var(--card-main);font:900 11px 'Barlow Condensed',sans-serif }
+.anime-card__footer { display:flex;align-items:center;justify-content:space-between;padding:6px 8px;color:white;background:linear-gradient(90deg,var(--card-bright),var(--card-main)) }
+.anime-card__footer span { display:flex;gap:2px }
+.anime-card__footer i { color:#64442b;font-size:12px;font-style:normal }
+.anime-card__footer i.is-on { color:#fff9b7;text-shadow:0 1px var(--card-deep) }
+.anime-card__footer>b { font-size:8px }
+
+/* Lower tiers intentionally lose saturation, shine, and visual depth. */
+.anime-card.tier-a { filter:saturate(.78);box-shadow:0 14px 26px #0008 }
+.anime-card.tier-b { filter:saturate(.48) brightness(.9);border-color:#a99b7d;box-shadow:0 10px 20px #0008 }
+.anime-card.tier-b .anime-card__foil,.anime-card.tier-c .anime-card__foil { display:none }
+.anime-card.tier-b .anime-card__burst { opacity:.45 }
+.anime-card.tier-c { filter:saturate(.2) brightness(.76);border-color:#777b78;box-shadow:0 7px 14px #0007 }
+.anime-card.tier-c .anime-card__burst { display:none }
+.anime-card.tier-c .anime-card__art { background:linear-gradient(145deg,#7e8581,#3f4845) }
+
+@keyframes card-glow { to { transform:rotate(360deg) } }
