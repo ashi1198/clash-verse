@@ -1,0 +1,47 @@
+{
+  "tactics": [
+    {
+      "id": "stall",
+      "name": "Stall",
+      "description": "A random unused enemy card loses its abilities for one clash.",
+      "slots": ["any"],
+      "trigger": "onPlay",
+      "target": "randomEnemyUnused",
+      "action": "stall",
+      "duration": "clash",
+      "resist": { "stat": "lead", "divisor": 2, "cap": 50, "appliesTo": "captain" },
+      "cost": { "focus": 1 },
+      "limit": { "perRound": 1, "scope": "player" }
+    },
+    {
+      "id": "rally",
+      "name": "Rally",
+      "description": "Your next clash deals more power.",
+      "slots": ["any"],
+      "trigger": "onPlay",
+      "target": "self",
+      "action": "powerMod",
+      "mode": "percent",
+      "value": 10,
+      "duration": "clash",
+      "scaling": { "with": "tier" },
+      "cost": { "focus": 1 },
+      "limit": { "perRound": 1, "scope": "player" }
+    },
+    {
+      "id": "rattle",
+      "name": "Rattle",
+      "description": "The enemy's next clash deals less power.",
+      "slots": ["any"],
+      "trigger": "onPlay",
+      "target": "enemyActive",
+      "action": "powerMod",
+      "mode": "percent",
+      "value": -10,
+      "duration": "clash",
+      "scaling": { "with": "tier" },
+      "cost": { "focus": 1 },
+      "limit": { "perRound": 1, "scope": "player" }
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://verseclash.local/schemas/ability.schema.json",
+  "title": "Ability",
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "when": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hpBelowPct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "hpAbovePct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "losingClash": { "type": "boolean" },
+        "winningClash": { "type": "boolean" },
+        "selfHasTag": { "type": "string" },
+        "allyHasTag": { "type": "string" },
+        "enemyHasTag": { "type": "string" },
+        "focusAtLeast": { "type": "integer", "minimum": 0, "maximum": 6 }
+      }
+    },
+    "filter": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tag": { "type": "string" },
+        "notTag": { "type": "string" },
+        "tier": { "enum": ["C", "B", "A", "S", "GOD"] }
+      }
+    },
+    "cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "focus": { "type": "integer", "minimum": 0, "maximum": 6 } }
+    },
+    "limit": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "perRound": { "type": "integer", "minimum": 1 },
+        "perMatch": { "type": "integer", "minimum": 1 },
+        "scope": { "enum": ["card", "player"] }
+      }
+    },
+    "resist": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stat", "divisor", "cap"],
+      "properties": {
+        "stat": { "enum": ["atk", "def", "sup", "heal", "lead"] },
+        "divisor": { "type": "number", "exclusiveMinimum": 0 },
+        "cap": { "type": "number", "minimum": 0, "maximum": 100 },
+        "appliesTo": { "enum": ["captain", "any"] }
+      }
+    },
+    "effect": {
+      "type": "object",
+      "required": ["target", "action"],
+      "properties": {
+        "target": {
+          "enum": ["self", "ally", "allAllies", "enemyActive", "allEnemies",
+                   "enemyCaptain", "randomEnemyUnused", "enemyChosenCard", "allPlayers"]
+        },
+        "filter": { "$ref": "#/$defs/filter" },
+        "action": {
+          "enum": ["damage", "heal", "maxHp", "statMod", "powerMod", "dodge", "block",
+                   "stall", "reveal", "stealAbility", "stealEvent", "turnCoat", "focusMod"]
+        },
+        "stat": { "enum": ["atk", "def", "sup", "heal", "lead", "all"] },
+        "mode": { "enum": ["flat", "percent"] },
+        "value": { "type": "number" },
+        "mult": { "type": "number" },
+        "count": { "type": "integer", "minimum": 1 },
+        "duration": { "enum": ["clash", "round", "match"] },
+        "reveals": { "enum": ["card", "move", "hand"] },
+        "resist": { "$ref": "#/$defs/resist" }
+      }
+    }
+  },
+  "allOf": [{ "$ref": "#/$defs/effect" }],
+  "type": "object",
+  "required": ["id", "name", "slots", "trigger"],
+  "properties": {
+    "id": { "$ref": "#/$defs/id" },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "slots": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["any", "captain", "duelist", "tank", "support", "healer"] }
+    },
+    "trigger": {
+      "enum": ["onPlay", "onRoundStart", "onClashWin", "onClashLose", "onPhaseLock", "passive"]
+    },
+    "when": { "$ref": "#/$defs/when" },
+    "cost": { "$ref": "#/$defs/cost" },
+    "limit": { "$ref": "#/$defs/limit" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "scaling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["with"],
+      "properties": {
+        "with": { "enum": ["tier", "stars"] },
+        "perStar": { "type": "number" }
+      }
+    }
+  },
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://verseclash.local/schemas/event.schema.json",
+  "title": "Event card",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "kind", "castBy", "cost", "effect"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]{2}$" },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "kind": { "const": "event" },
+    "castBy": { "const": "captain" },
+    "cost": { "$ref": "ability.schema.json#/$defs/cost" },
+    "limit": { "$ref": "ability.schema.json#/$defs/limit" },
+    "effect": { "$ref": "ability.schema.json#/$defs/effect" },
+    "support": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["requires", "modify"],
+        "properties": {
+          "requires": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": { "tag": { "type": "string" } }
+          },
+          "modify": { "type": "object" }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["quiz", "quest", "wheel", "shop"] },
+        "questId": { "type": "string" },
+        "wheelId": { "type": "string" },
+        "price": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://verseclash.local/schemas/arc.schema.json",
+  "title": "Arc",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "universe", "name", "order", "field", "cardIds", "eventIds"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]{2}$" },
+    "universe": { "type": "string", "pattern": "^[a-z0-9]+$" },
+    "name": { "type": "string", "minLength": 1 },
+    "subtitle": { "type": "string" },
+    "order": { "type": "integer", "minimum": 1 },
+    "unlockedBy": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "arc": { "type": "string", "pattern": "^[a-z0-9]{2}$" },
+        "wins": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "rules"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["action", "mode", "value"],
+            "properties": {
+              "action": { "type": "string" },
+              "applies": { "type": "string" },
+              "mode": { "enum": ["flat", "percent"] },
+              "value": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "cardIds": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+    "eventIds": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+    "reward": { "type": "string" }
+  }
+}

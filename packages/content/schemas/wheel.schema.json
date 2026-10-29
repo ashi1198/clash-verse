@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://verseclash.local/schemas/wheel.schema.json",
+  "title": "Wheel",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "cost", "slots"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["currency", "amount"],
+      "properties": {
+        "currency": { "type": "string" },
+        "amount": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "pity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["after", "grants"],
+      "properties": {
+        "after": { "type": "integer", "minimum": 1 },
+        "grants": { "type": "string" }
+      }
+    },
+    "slots": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["reward", "weight"],
+        "properties": {
+          "reward": {
+            "type": "string",
+            "pattern": "^(currency:[a-z0-9]+:[0-9]+|card:[a-z0-9-]+|tier:(C|B|A|S|GOD))$"
+          },
+          "weight": { "type": "number", "exclusiveMinimum": 0 }
+        }
+      }
+    }
+  }
+}
