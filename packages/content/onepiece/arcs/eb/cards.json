@@ -1,0 +1,15 @@
+[
+  {
+    "id": "luffy-eb",
+    "universe": "onepiece",
+    "arc": "eb",
+    "name": "Monkey D. Luffy",
+    "form": "Gum-Gum",
+    "tier": "A",
+    "stars": 3,
+    "stats": { "atk": 90, "def": 55, "sup": 30, "heal": 15, "lead": 80 },
+    "abilities": ["gum-gum-pistol"],
+    "tags": ["strawhat", "rubber"],
+    "image": "onepiece/eb/luffy-eb.webp"
+  }
+]

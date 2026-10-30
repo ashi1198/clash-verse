@@ -1,0 +1,11 @@
+{
+  "tiers": {
+    "C":   { "statBudget": 150, "maxAbilities": 1, "maxStars": 2, "tacticPower": 1 },
+    "B":   { "statBudget": 210, "maxAbilities": 1, "maxStars": 3, "tacticPower": 1.5 },
+    "A":   { "statBudget": 270, "maxAbilities": 2, "maxStars": 4, "tacticPower": 2 },
+    "S":   { "statBudget": 340, "maxAbilities": 3, "maxStars": 5, "tacticPower": 3 },
+    "GOD": { "statBudget": 450, "maxAbilities": 3, "maxStars": 5, "tacticPower": 3 }
+  },
+  "statMax": 100,
+  "levelStatBonusMaxPct": 30
+}

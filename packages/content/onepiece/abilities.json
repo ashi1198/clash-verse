@@ -1,0 +1,14 @@
+[
+  {
+    "id": "gum-gum-pistol",
+    "name": "Gum-Gum Pistol",
+    "description": "A stretching punch that deals extra damage to the enemy's active fighter.",
+    "slots": ["duelist", "captain"],
+    "trigger": "onPlay",
+    "target": "enemyActive",
+    "action": "damage",
+    "mult": 1.2,
+    "cost": { "focus": 1 },
+    "limit": { "perRound": 1, "scope": "card" }
+  }
+]
