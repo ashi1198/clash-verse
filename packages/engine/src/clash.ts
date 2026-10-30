@@ -6,9 +6,11 @@ export type MoveName = keyof typeof rules.moves;
 export interface ClashSide {
   hp: number;
   focus: number;
-  stats: Stats; // effective stats from effectiveStats()
+  stats: Stats; // from effectiveStats()
+  strikeMult: number; // from slotMultipliers()
+  blockMult: number; // from slotMultipliers()
   move: MoveName;
-  powerMult?: number; // Rally/Rattle will plug in here later (1 = normal)
+  powerMult?: number; // Rally/Rattle plug in here later (1 = normal)
 }
 
 export interface SideResult {
@@ -38,6 +40,7 @@ function outgoing(side: ClashSide, move: MoveName): number {
   return (
     power *
     (side.stats.atk / 50) *
+    side.strikeMult *
     (side.powerMult ?? 1) *
     rules.match.damageScale
   );
@@ -49,7 +52,11 @@ function afterDefense(
   defender: ClashSide,
   defenderMove: MoveName,
 ): number {
-  const blocked = incoming * (1 - rules.moves[defenderMove].block);
+  const blockFraction = Math.min(
+    rules.roles.maxBlock,
+    rules.moves[defenderMove].block * defender.blockMult,
+  );
+  const blocked = incoming * (1 - blockFraction);
   return Math.round((blocked * 100) / (100 + defender.stats.def));
 }
 

@@ -3,12 +3,14 @@ import { rules } from "@verse/content";
 import { resolveClash, type ClashSide } from "../src/clash";
 
 const S = rules.match.damageScale;
-// atk 50 means "x1 damage", def 0 means "no DEF reduction": easy maths
+// atk 50 = x1 damage, def 0 = no DEF reduction, mults 1 = no slot effect: easy maths
 const plain = { atk: 50, def: 0, sup: 0, heal: 0, lead: 0 };
 const side = (over: Partial<ClashSide> = {}): ClashSide => ({
   hp: 10000,
   focus: 2,
   stats: plain,
+  strikeMult: 1,
+  blockMult: 1,
   move: "quickStrike",
   ...over,
 });
@@ -55,7 +57,7 @@ describe("resolveClash", () => {
 
   test("DEF reduces damage: def 100 halves it", () => {
     const tank = { ...plain, def: 100 };
-    const r = resolveClash(side(), side({ stats: tank, move: "quickStrike" }));
+    const r = resolveClash(side(), side({ stats: tank }));
     expect(r.b.damageTaken).toBe(Math.round((60 * S * 100) / 200));
   });
 
@@ -67,5 +69,22 @@ describe("resolveClash", () => {
   test("focus is capped at the maximum", () => {
     const r = resolveClash(side({ move: "guard", focus: 6 }), side());
     expect(r.a.focus).toBe(rules.focus.max);
+  });
+
+  test("strikeMult scales damage: a tank (0.7) hits weaker", () => {
+    const r = resolveClash(side({ strikeMult: 0.5 }), side());
+    expect(r.b.damageTaken).toBe(Math.round(60 * S * 0.5));
+  });
+
+  test("blockMult scales blocking: guard with 1.5 blocks 45%", () => {
+    const r = resolveClash(side(), side({ move: "guard", blockMult: 1.5 }));
+    expect(r.b.damageTaken).toBe(Math.round(60 * S * 0.55));
+  });
+
+  test("block is capped so damage can never be fully stopped", () => {
+    const r = resolveClash(side(), side({ move: "brace", blockMult: 3 }));
+    expect(r.b.damageTaken).toBe(
+      Math.round(60 * S * (1 - rules.roles.maxBlock)),
+    );
   });
 });
