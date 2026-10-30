@@ -1,0 +1,13 @@
+{
+  "slotOrder": ["captain", "duelist", "tank", "support", "healer"],
+  "slots": {
+    "duelist": { "atk": 1 },
+    "tank":    { "def": 1, "atk": 0.25 },
+    "support": { "sup": 1, "heal": 0.3, "atk": 0.3 },
+    "healer":  { "heal": 1, "sup": 0.3 },
+    "captain": { "lead": 1, "atk": 0.6, "def": 0.6, "sup": 0.6, "heal": 0.6 }
+  },
+  "tankHpPerDef": 40,
+  "captainBonusMaxPct": 10,
+  "fitRating": { "perfect": 0.85, "good": 0.6 }
+}

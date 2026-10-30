@@ -2,5 +2,14 @@
   "name": "@verse/engine",
   "version": "0.0.1",
   "type": "module",
-  "main": "src/index.ts"
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@verse/content": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.4"
+  }
 }

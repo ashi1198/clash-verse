@@ -1,0 +1,19 @@
+{
+  "focus": { "start": 2, "max": 6 },
+ "match": {
+  "rounds": 3,
+  "starters": 5,
+  "substitutes": 2,
+  "baseRoundHp": 10000,
+  "damageScale": 20,
+  "cardPickSeconds": 5,
+  "movePickSeconds": 5,
+  "timeoutDefault": { "card": "lowestCostUnused", "move": "guard" }
+},
+  "moves": {
+    "quickStrike": { "power": 60,  "focusCost": 0, "focusGain": 0, "block": 0 },
+    "heavyStrike": { "power": 130, "focusCost": 2, "focusGain": 0, "block": 0 },
+    "guard":       { "power": 0,   "focusCost": 0, "focusGain": 1, "block": 0.3 },
+    "brace":       { "power": 0,   "focusCost": 1, "focusGain": 0, "block": 0.6 }
+  }
+}
